@@ -14,7 +14,13 @@ class CreateOrderController extends Controller
 {
     public function __invoke(CreateOrderRequest $request)
     {
-        $order = Order::query()->create($request->validated());
+        $validatedData =$request->validated();
+
+        if (!isset($validatedData['status'])) {
+            $validatedData['status'] = 'pending';
+        }
+
+        $order = Order::query()->create($validatedData);
 
         return response()->json(['order' => $order], 200);
     }

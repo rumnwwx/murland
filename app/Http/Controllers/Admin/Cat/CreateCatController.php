@@ -67,7 +67,7 @@ class CreateCatController extends Controller
             ]);
         }
 
-        $cat->load(['breed']);
+        $cat->load(['breed', 'mother', 'father']);
 
         $response = [
             'cat' => [

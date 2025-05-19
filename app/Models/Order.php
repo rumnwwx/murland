@@ -16,4 +16,9 @@ class Order extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function cats()
+    {
+        return $this->belongsToMany(Cat::class, 'order_cats', 'order_id', 'cat_id');
+    }
 }

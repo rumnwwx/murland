@@ -24,6 +24,7 @@ class CreateOrderRequest extends FormRequest
         return [
             "name" => "required|string",
             "phone" => "required|string",
+            "status" => "nullable|in:pending,approved,canceled",
         ];
     }
 }

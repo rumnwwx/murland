@@ -12,32 +12,17 @@ use Illuminate\Http\Request;
 
 class DeclineOrderController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke($id)
     {
-        $orders = Order::get();
+        $order = Order::findOrFail($id);
+        $order->status = 'canceled';
+        $order->save();
 
-        foreach ($orders as $order) {
-
-            if(OrderCat::where('id', $order->id)->count()){
-                $cat = Cat::where('id', OrderCat::where('id', $order->id)->first()->cat_id)->first();
-                $data[] = array(
-                    'id' => $order->id,
-                    'name' => $order->name,
-                    'phone' => $order->phone,
-                    'status' => $order->status,
-                    'cat' => $cat
-                );
-            }
-            else{
-                $data[] = array(
-                    'id' => $order->id,
-                    'name' => $order->name,
-                    'phone' => $order->phone,
-                    'status' => $order->status,
-                );
-            }
+        foreach ($order->cats as $cat) {
+            $cat->status = 'доступен';
+            $cat->save();
         }
 
-        return $data;
+        return response()->json(['message' => 'Заявка отклонена']);
     }
 }

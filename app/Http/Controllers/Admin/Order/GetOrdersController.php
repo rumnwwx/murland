@@ -14,33 +14,18 @@ class GetOrdersController extends Controller
 {
     public function __invoke(Request $request)
     {
-        // Получаем заказы с нужными отношениями
-        $orders = Order::with(['user', 'orderItems.product'])
-            ->latest()
-            ->get();
+        $orders = Order::all()->sortBy(function ($orders) {
+            $statuses = [
+                'pending' => 0,
+                'approved' => 1,
+                'canceled' => 2
+            ];
 
-        // Формируем данные для ответа
-        $data = [
-            'orders' => $orders->map(function ($order) {
-                return [
-                    'id' => $order->id,
-                    'user' => $order->user->name,
-                    'total' => $order->total,
-                    'status' => $order->status,
-                    'created_at' => $order->created_at->format('Y-m-d H:i:s'),
-                    'items' => $order->orderItems->map(function ($item) {
-                        return [
-                            'product' => $item->product->name,
-                            'quantity' => $item->quantity,
-                            'price' => $item->price
-                        ];
-                    })
-                ];
-            })
-        ];
+            return $statuses[$orders->status];
+        });
 
-        // Возвращаем ответ
-        return response()->json($data);
+
+        return response()->json($orders)->setStatusCode(200);
     }
 
 }
