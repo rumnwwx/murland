@@ -24,14 +24,17 @@ class CatFactory extends Factory
             ? $this->faker->randomElement($namesMale)
             : $this->faker->randomElement($namesFemale);
 
+        $imageFiles = glob(public_path('images') . '/*.*');
+        $photo = $imageFiles ? basename($this->faker->randomElement($imageFiles)) : null;
+
         return [
             'name' => $name,
             'gender' => $gender,
-            'birth_date' => $this->faker->dateTimeBetween('-10 years', '-2 months')->format('Y-m-d'),
+            'birth_date' => $this->faker->date('Y-m-d', $this->faker->dateTimeBetween('-10 years', '-2 months')),
             'color' => $this->faker->randomElement($colors),
-            'breed_id' => rand(1, 2),
+            'breed_id' => $this->faker->numberBetween(1, 2),
             'status' => 'доступен',
-            'photo_id' => rand(1, 4),
+            'photo' => $photo ? 'images/' . $photo : null,
         ];
     }
 }

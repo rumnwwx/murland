@@ -18,8 +18,8 @@ return new class extends Migration
             $table->date('birth_date');
             $table->string('color');
             $table->foreignId('breed_id')->constrained('breeds');
-            $table->enum('status',['доступен','забронирован','усыновлен']);
-            $table->foreignId('photo_id')->nullable()->constrained('photos')->cascadeOnDelete();
+            $table->enum('status',['доступен','забронирован','усыновлен'])->default('доступен');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

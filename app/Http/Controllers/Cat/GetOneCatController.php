@@ -9,14 +9,27 @@ class GetOneCatController extends Controller
 {
     public function __invoke($id)
     {
-        $cat = Cat::find($id);
+        $cat = Cat::with(['breed'])->find($id);
 
         if (!$cat) {
             return response()->json([
-                'message' => 'Пост не найден',
+                'message' => 'Кот не найден',
             ], 404);
         }
 
-        return response()->json($cat)->setStatusCode(200);
+        $data = [
+            'id' => $cat->id,
+            'name' => $cat->name,
+            'gender' => $cat->gender,
+            'birth_date' => $cat->birth_date,
+            'color' => $cat->color,
+            'breed' => $cat->breed->name ?? null,
+            'photo' => $cat->photo ? asset('/' . $cat->photo) : null,
+            'status' => $cat->status,
+            'mother' => $cat-> mother,
+            'father' => $cat-> father
+        ];
+
+        return response()->json($data);
     }
 }

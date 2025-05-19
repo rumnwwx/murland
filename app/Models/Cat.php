@@ -16,7 +16,7 @@ class Cat extends Model
         'color',
         'breed_id',
         'status',
-        'photo_id'
+        'photo'
     ];
 
     public function breed()
@@ -40,11 +40,5 @@ class Cat extends Model
     {
         return $this->hasMany(Pedigree::class, 'parent_id');
     }
-
-    public function photo()
-    {
-        return $this->belongsTo(Photo::class);
-    }
-
 
 }

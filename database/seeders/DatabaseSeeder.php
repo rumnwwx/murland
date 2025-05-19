@@ -30,15 +30,7 @@ class DatabaseSeeder extends Seeder
              'name' => 'Абиссинская'
          ]);
 
-        $imageDirectory = public_path('images');
 
-        $files = File::files($imageDirectory);
-
-        foreach ($files as $file) {
-            Photo::create([
-                'file' => 'images/' . $file->getFilename(),
-            ]);
-        }
 
         Cat::factory()->count(20)->create();
     }

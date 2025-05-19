@@ -28,8 +28,8 @@ class CreateCatRequest extends ApiRequest
             'birth_date' => 'required',
             'color' => 'required|string|min:3|max:255',
             'breed_id' => 'required',
-            'status' => 'required|in:доступен,забронирован,усыновлен',
-            'file' => 'required|mimes:jpeg,jpg,png|max:2048|image',
+            'status' => 'nullable|in:доступен,забронирован,усыновлен',
+            'photo' => 'nullable|mimes:jpeg,jpg,png|max:2048|image',
             'mother_id' => 'nullable|exists:cats,id',
             'father_id' => 'nullable|exists:cats,id',
         ];

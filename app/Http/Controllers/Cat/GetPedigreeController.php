@@ -14,15 +14,12 @@ class GetPedigreeController extends Controller
 {
     public function __invoke(Request $request)
     {
-        // Получаем всех котов, которые являются родителями (имеют детей)
         $parents = Cat::whereHas('children')
-            // И при этом не являются чьими-то детьми (не имеют родителей)
             ->whereDoesntHave('mother')
             ->whereDoesntHave('father')
-            ->with(['breed', 'photo'])
+            ->with(['breed'])
             ->get();
 
-        // Форматируем результат
         $data = $parents->map(function ($parent) {
             return [
                 'id' => $parent->id,
@@ -31,15 +28,14 @@ class GetPedigreeController extends Controller
                 'birth_date' => $parent->birth_date,
                 'color' => $parent->color,
                 'breed' => $parent->breed->name ?? null,
-                'photo_id' => $parent->photo->file ?? null,
+                'photo' => $parent->photo ? asset('/' . $parent->photo) : null,
                 'status' => $parent->status,
                 'children_count' => $parent->children->count()
             ];
         });
 
         return response()->json([
-            'parents' => $data,
-            'count' => $parents->count()
+            'parents' => $data
         ]);
     }
 }

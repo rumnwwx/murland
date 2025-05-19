@@ -16,7 +16,7 @@ class GetAvailableCatsController extends Controller
     {
         $query = Cat::query()
             ->where('status', 'доступен')
-            ->with('breed');
+            ->with(['breed']);
 
         if ($request->has('gender')) {
             $query->where('gender', $request->gender);
@@ -28,15 +28,18 @@ class GetAvailableCatsController extends Controller
             });
         }
 
-        $cats = $query->orderBy('name');
+        $cats = $query->orderBy('name')
+            ->get()
+            ->map(function ($cat) {
+                $catArray = $cat->toArray();
 
-        $cats = $cats->get()->map(function ($cat) {
-            return [
-                ...$cat->toArray(),
-                'breed' => $cat->breed->name,
-            ];
-        });
+                return [
+                    ...$catArray,
+                    'breed' => $cat->breed->name,
+                    'photo' => $cat->photo ? asset('/' . $cat->photo) : null,
+                ];
+            });
 
-        return $cats;
+        return response()->json($cats);
     }
 }
