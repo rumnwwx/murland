@@ -38,8 +38,8 @@ Route::prefix('admin')->group(function () {
         Route::patch('/contacts', Admin\Contact\UpdateContactController::class);
 
         Route::get('/orders', Admin\Order\GetOrdersController::class);
-        Route::get('/orders/{id}/approve', Admin\Order\ApproveOrderController::class);
-        Route::get('/orders/{id}/decline', Admin\Order\DeclineOrderController::class);
+        Route::post('/orders/{id}/approve', Admin\Order\ApproveOrderController::class);
+        Route::post('/orders/{id}/decline', Admin\Order\DeclineOrderController::class);
     });
 });
 

@@ -25,6 +25,8 @@ class CreateOrderRequest extends FormRequest
             "name" => "required|string",
             "phone" => "required|string",
             "status" => "nullable|in:pending,approved,canceled",
+            'cat_ids' => 'nullable|array',
+            'cat_ids.*' => 'exists:cats,id',
         ];
     }
 }
