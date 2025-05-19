@@ -25,7 +25,7 @@ class UpdateCatRequest extends ApiRequest
         return [
             'name' => 'nullable|string|min:3|max:255',
             'gender' => 'nullable|in:Кот,Кошка',
-            'birth_date' => 'nullable|date_format:d.m.Y',
+            'birth_date' => 'nullable',
             'color' => 'nullable|string|min:3|max:255',
             'breed_id' => 'nullable',
             'status' => 'nullable|in:available,reserved,adopted',

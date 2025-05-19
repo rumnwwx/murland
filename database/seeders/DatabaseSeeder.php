@@ -26,11 +26,10 @@ class DatabaseSeeder extends Seeder
          Breed::create([
              'name' => 'Бурма'
          ]);
+
          Breed::create([
              'name' => 'Абиссинская'
          ]);
-
-
 
         Cat::factory()->count(20)->create();
     }

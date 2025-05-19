@@ -13,7 +13,19 @@ class ApproveOrderController extends Controller
 {
     public function __invoke($id)
     {
+        $order = Order::find($id);
+        if (!$order) {
+            return response()->json(['error' => 'Заказ не найден'], 404);
+        }
 
+        $order->status = 'approved';
+        $order->save();
+
+        foreach ($order->cats as $cat) {
+            $cat->status = 'забронирован';
+            $cat->save();
+        }
+
+        return response()->json(['message' => 'Заказ успешно одобрен']);
     }
-
 }

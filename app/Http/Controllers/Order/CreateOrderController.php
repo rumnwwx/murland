@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateOrderRequest;
-use App\Models\Cat;
+use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Order;
-use App\Models\OrderCat;
-use Illuminate\Http\Request;
 
 class CreateOrderController extends Controller
 {
