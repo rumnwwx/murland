@@ -29,6 +29,7 @@ class GetCatsController extends Controller
                 return [
                     ...$cat->toArray(),
                     'breed' => $cat->breed->name ?? null,
+                    'photo' => $cat->photo ? asset('/' . $cat->photo) : null,
                 ];
             });
 

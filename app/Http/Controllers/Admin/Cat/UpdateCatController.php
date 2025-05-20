@@ -14,7 +14,12 @@ class UpdateCatController extends Controller
     {
         $validated = $request->validated();
         $cat = Cat::findOrFail($id);
-        $cat->update($validated);
+
+        $updateData = array_filter($validated, function($value) {
+            return $value !== null;
+        });
+
+        $cat->update($updateData);
 
         return response()->json([
             'message' => 'Кот успешно обновлен',
