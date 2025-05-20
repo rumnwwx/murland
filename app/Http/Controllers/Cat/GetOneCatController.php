@@ -26,8 +26,8 @@ class GetOneCatController extends Controller
             'breed' => $cat->breed->name ?? null,
             'photo' => $cat->photo ? asset('/' . $cat->photo) : null,
             'status' => $cat->status,
-            'mother' => $cat-> mother,
-            'father' => $cat-> father
+            'mother' => $cat->mother->map(fn($item) => [...$item->toArray(), 'photo' => asset('/' . $item->photo)]),
+            'father' => $cat->father->map(fn($item) => [...$item->toArray(), 'photo' => asset('/' . $item->photo)]),
         ];
 
         return response()->json($data);
