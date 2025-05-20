@@ -11,6 +11,6 @@ class LogoutController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->noContent();
+        return response()->json(['message' => 'Вы успешно вышли из аккаунта']);
     }
 }
