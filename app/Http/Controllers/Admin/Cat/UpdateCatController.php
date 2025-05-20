@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateCatRequest;
 use App\Http\Requests\Admin\UpdateCatRequest;
 use App\Models\Cat;
-use App\Models\Photo;
 use Illuminate\Http\Request;
 
 class UpdateCatController extends Controller
@@ -17,6 +16,9 @@ class UpdateCatController extends Controller
         $cat = Cat::findOrFail($id);
         $cat->update($validated);
 
-        return response()->json($cat)->setStatusCode(200);
+        return response()->json([
+            'message' => 'Кот успешно обновлен',
+            'data' => $cat
+        ]);
     }
 }

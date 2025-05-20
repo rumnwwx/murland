@@ -28,8 +28,6 @@ class UpdateCatRequest extends ApiRequest
             'birth_date' => 'nullable',
             'color' => 'nullable|string|min:3|max:255',
             'breed_id' => 'nullable',
-            'status' => 'nullable|in:available,reserved,adopted',
-            'file' => 'nullable|mimes:jpeg,jpg,png|max:2048|image',
         ];
     }
 }

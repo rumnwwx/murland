@@ -15,6 +15,6 @@ class DeleteCatController extends Controller
         $cat = Cat::findOrFail($id);
         $cat->delete($id);
 
-        return response()->json(null)->setStatusCode(200);
+        return response()->json(['message' => 'Кот успешно удален'])->setStatusCode(200);
     }
 }

@@ -35,7 +35,7 @@ class GetAvailableCatsController extends Controller
 
                 return [
                     ...$catArray,
-                    'breed' => $cat->breed->name,
+                    'breed' => $cat->breed->name ?? null,
                     'photo' => $cat->photo ? asset('/' . $cat->photo) : null,
                 ];
             });

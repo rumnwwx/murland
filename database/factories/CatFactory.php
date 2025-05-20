@@ -34,7 +34,7 @@ class CatFactory extends Factory
             'color' => $this->faker->randomElement($colors),
             'breed_id' => $this->faker->numberBetween(1, 2),
             'status' => 'доступен',
-            'photo' => $photo ? 'images/' . $photo : null,
+            'photo' => $photo ? 'http://mur.loc/public/images/'.$photo : null,
         ];
     }
 }

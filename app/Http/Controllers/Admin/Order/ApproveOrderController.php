@@ -22,7 +22,7 @@ class ApproveOrderController extends Controller
         $order->save();
 
         foreach ($order->cats as $cat) {
-            $cat->status = 'забронирован';
+            $cat->status = 'усыновлен';
             $cat->save();
         }
 

@@ -22,6 +22,11 @@ class CreateOrderController extends Controller
             $order->cats()->sync($validatedData['cat_ids']);
         }
 
+        foreach ($order->cats as $cat) {
+            $cat->status = 'забронирован';
+            $cat->save();
+        }
+
         $response = [
             'order' => [
                 'id' => $order->id,

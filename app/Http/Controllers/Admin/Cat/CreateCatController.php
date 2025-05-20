@@ -45,7 +45,7 @@ class CreateCatController extends Controller
 
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('cats', 'public');
-            $validatedData['photo'] = 'storage/'.$photoPath;
+            $validatedData['photo'] = 'storage/app/public/'.$photoPath;
 
         }
 
